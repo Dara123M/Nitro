@@ -71,7 +71,8 @@ bool Nitro::PlayerController::Init(Engine::EntityManager* entityManager_, Engine
 		input.inputActions.emplace_back(fmt::format("Player{}MoveLeft", i));
 		input.inputActions.emplace_back(fmt::format("Player{}MoveRight", i));
 		input.inputActions.emplace_back(fmt::format("Player{}Jump", i));
-
+		input.inputActions.emplace_back(fmt::format("Start{}Game", i));
+		input.inputActions.emplace_back(fmt::format("Pause{}Game", i));
 		// input.inputActions.emplace_back("Player1Jump");
 
 		player->AddComponent<PlayerTagComponent>(PlayerTagFromInt(i));
@@ -124,15 +125,6 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 		bool moveLeft = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveLeft", tag));
 		bool moveRight = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveRight", tag));
 		bool jump = Engine::InputManager::IsActionActive(input, fmt::format("Player{}Jump", tag));
-<<<<<<< Updated upstream
-
-
-		MoveWheel(dt_, moveLeft, moveRight, physics);
-		HandleGasAndBreaking(dt_, moveUp, moveDown, physics);
-		SteerTheCar(dt_, player);
-		HandleJump(dt_, jump, player, audioManager_);
-		CollideWithOtherEntities(dt_, player);
-=======
 		bool start = Engine::InputManager::IsActionActive(input, fmt::format("Start{}Game",tag));
 		bool pause = Engine::InputManager::IsActionActive(input, fmt::format("Pause{}Game", tag));
 
@@ -168,7 +160,7 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 			}
 		}
 
->>>>>>> Stashed changes
+
 	}
 
 }

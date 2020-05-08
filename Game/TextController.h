@@ -12,7 +12,7 @@ namespace Nitro
 	{
 	public:
 		bool Init(Engine::EntityManager* entityManager_);
-		void Update(float dt_, Engine::EntityManager* entityManager_);
+		void Update(float dt_, Engine::EntityManager* entityManager_, GameMode gameMode_);
 		static std::unique_ptr<TextController> Create() {
 
 			return std::make_unique<TextController>();

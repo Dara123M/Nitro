@@ -120,7 +120,9 @@ namespace Nitro
 	enum class TextInfoType {
 		Kmh,
 		Speed,
-		Distance
+		Distance,
+		Start,
+		Pause
 	};
 
 	struct TextInfoComponent : public Engine::Component
@@ -143,8 +145,7 @@ namespace Nitro
 		float m_JumpTimeCooldownLength;
 	};
 	
-<<<<<<< Updated upstream
-=======
+
 	enum class GameMode {
 		MenuMode,
 		PlayingMode,
@@ -163,5 +164,5 @@ namespace Nitro
 			return "";
 		}
 	}
->>>>>>> Stashed changes
+
 }

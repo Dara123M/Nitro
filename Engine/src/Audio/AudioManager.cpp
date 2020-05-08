@@ -165,4 +165,12 @@ namespace Engine
 			LOG_WARNING(fmt::format("Music with name {} wasn't loaded", name));
 		}
 	}
+
+	void AudioManager::ResumeMusic() {
+		Mix_ResumeMusic();
+	}
+
+	void AudioManager::PauseMusic() {
+		Mix_PauseMusic();
+	}
 };

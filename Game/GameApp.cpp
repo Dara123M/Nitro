@@ -75,14 +75,9 @@ bool Nitro::GameApp::GameSpecificInit()
 		LOG_ERROR("Failed to initilize AUdioController");
 		return false;
 	}
-<<<<<<< Updated upstream
 
-
-=======
-	
 	m_gameMode = GameMode::MenuMode;
-	game = "menu";
->>>>>>> Stashed changes
+
 	return true;
 }
 
@@ -96,12 +91,10 @@ void Nitro::GameApp::GameSpecificUpdate(float dt)
 #if _DEBUG
 	m_DebugController->Update(dt, m_EntityManager.get());
 #endif
-	m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get());
-	m_TextController->Update(dt, m_EntityManager.get());
+
+
 	m_CameraController->Update(dt, m_EntityManager.get());
 	m_TrackController->Update(dt, m_EntityManager.get(), m_TextureManager.get());
-<<<<<<< Updated upstream
-=======
 	m_TextController->Update(dt, m_EntityManager.get(), m_gameMode);
 	m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get(), &m_gameMode);
 
@@ -138,5 +131,5 @@ void Nitro::GameApp::GameSpecificUpdate(float dt)
 	}
 	}
 	*/
->>>>>>> Stashed changes
+
 }

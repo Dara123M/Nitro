@@ -7,6 +7,7 @@ namespace Engine {
 namespace Nitro
 {
 	struct CarPhysicsComponent;
+	enum class GameMode;
 	class PlayerController
 	{
 	public:
