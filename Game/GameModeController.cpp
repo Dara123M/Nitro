@@ -48,7 +48,7 @@ namespace Nitro {
 			case GameMode::MenuMode: {
 
 
-				if (info->m_Type== TextInfoType::Start && (inputManager_->IsActionInState("Start1Game", Engine::EInputActionState::Pressed) || inputManager_->IsActionInState("Start2Game", Engine::EInputActionState::Pressed))) {
+				if (info->m_Type== TextInfoType::Start && (inputManager_->IsActionInState("Start1Game", Engine::EInputActionState::Released) || inputManager_->IsActionInState("Start2Game", Engine::EInputActionState::Released))) {
 					m_GameMode = GameMode::PlayingMode;
 					audioManager_->PlayMusic("background_music");
 					tekst->m_text = " ";
@@ -57,7 +57,7 @@ namespace Nitro {
 			}break;
 			case GameMode::PlayingMode: {
 
-				if (info->m_Type == TextInfoType::Pause && (inputManager_->IsActionInState("Pause1Game", Engine::EInputActionState::Pressed) || inputManager_->IsActionInState("Pause2Game", Engine::EInputActionState::Pressed))) {
+				if (info->m_Type == TextInfoType::Pause && (inputManager_->IsActionInState("Pause1Game", Engine::EInputActionState::Released) || inputManager_->IsActionInState("Pause2Game", Engine::EInputActionState::Released))) {
 					m_GameMode = GameMode::PauseMode;
 					audioManager_->PauseMusic();
 					tekst->m_text = "PAUSE II";
@@ -66,7 +66,7 @@ namespace Nitro {
 			}break;
 			case GameMode::PauseMode: {
 
-				if (info->m_Type == TextInfoType::Pause && (inputManager_->IsActionInState("Pause1Game", Engine::EInputActionState::Pressed) || inputManager_->IsActionInState("Pause2Game", Engine::EInputActionState::Pressed))) {
+				if (info->m_Type == TextInfoType::Pause && (inputManager_->IsActionInState("Pause1Game", Engine::EInputActionState::Released) || inputManager_->IsActionInState("Pause2Game", Engine::EInputActionState::Released))) {
 					m_GameMode = GameMode::PlayingMode;
 					audioManager_->ResumeMusic();
 					tekst->m_text = " ";
