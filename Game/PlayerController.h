@@ -2,11 +2,14 @@
 namespace Engine {
 	class TextureManager;
 	class EntityManager;
+	class AudioManager;
 }
 
 namespace Nitro
 {
 	struct CarPhysicsComponent;
+	enum class GameMode;
+
 	class PlayerController
 	{
 	public:
@@ -16,7 +19,8 @@ namespace Nitro
 		{
 			return std::make_unique<PlayerController>();
 		}
-
+		bool StartingGame(Engine::EntityManager* entityManager_);
+		bool PausingGame(Engine::EntityManager* entityManager_, std::string gameMode_);
 	private:
 		void MoveWheel(float dt_, bool moveLeft, bool moveRight, CarPhysicsComponent* physics);
 		void HandleGasAndBreaking(float dt_, bool moveUp, bool moveDown, CarPhysicsComponent* physics);

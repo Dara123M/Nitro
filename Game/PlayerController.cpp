@@ -71,7 +71,8 @@ bool Nitro::PlayerController::Init(Engine::EntityManager* entityManager_, Engine
 		input.inputActions.emplace_back(fmt::format("Player{}MoveLeft", i));
 		input.inputActions.emplace_back(fmt::format("Player{}MoveRight", i));
 		input.inputActions.emplace_back(fmt::format("Player{}Jump", i));
-
+		input.inputActions.emplace_back(fmt::format("Start{}Game", i));
+		input.inputActions.emplace_back(fmt::format("Pause{}Game", i));
 		// input.inputActions.emplace_back("Player1Jump");
 
 		player->AddComponent<PlayerTagComponent>(PlayerTagFromInt(i));
@@ -112,10 +113,12 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 	{
 		auto player = players[i];
 		auto otherPlayer = players[(i+1) % 2];
+
 		auto physics = player->GetComponent<CarPhysicsComponent>();
 		auto mover = player->GetComponent<Engine::MoverComponent>();
 		auto input = player->GetComponent<Engine::InputComponent>();
 		auto transform = player->GetComponent<Engine::TransformComponent>();
+		
 		
 		int tag = PlayerTagToInt(player->GetComponent<PlayerTagComponent>()->m_PlayerTag);
 		bool moveUp = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveUp", tag));
@@ -123,8 +126,7 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 		bool moveLeft = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveLeft", tag));
 		bool moveRight = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveRight", tag));
 		bool jump = Engine::InputManager::IsActionActive(input, fmt::format("Player{}Jump", tag));
-
-
+		
 		MoveWheel(dt_, moveLeft, moveRight, physics);
 		HandleGasAndBreaking(dt_, moveUp, moveDown, physics);
 		SteerTheCar(dt_, player);
@@ -133,8 +135,6 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 	}
 
 }
-
-
 
 
 void Nitro::PlayerController::MoveWheel(float dt_, bool moveLeft, bool moveRight, CarPhysicsComponent* physics)
@@ -248,6 +248,62 @@ void Nitro::PlayerController::HandleJump(float dt_, bool jump, Engine::Entity* p
 		
 	}
 }
+
+bool Nitro::PlayerController::StartingGame(Engine::EntityManager* entityManager_) {
+	
+	bool GameStarted = false;
+	auto players = entityManager_->GetAllEntitiesWithComponents<Engine::PlayerComponent>();
+	ASSERT(players.size() == 2, "Must be excatly two players");
+
+	if (players[0]->GetComponent<PlayerTagComponent>()->m_PlayerTag == PlayerTag::Two)
+	{
+		std::swap(players[0], players[1]);
+	}
+
+	for (int i = 0; i < 2; ++i)
+	{
+		auto player = players[i];
+
+		auto input = player->GetComponent<Engine::InputComponent>();
+		
+		int tag = PlayerTagToInt(player->GetComponent<PlayerTagComponent>()->m_PlayerTag);
+
+		if (Engine::InputManager::IsActionActive(input, fmt::format("Start{}Game", tag))) {
+			GameStarted = true;
+			break;
+		}
+	}
+	return GameStarted;
+}
+
+bool Nitro::PlayerController::PausingGame(Engine::EntityManager* entityManager_, std::string gameMode_) {
+	
+	bool GamePaused = "pause"==gameMode_;
+	auto players = entityManager_->GetAllEntitiesWithComponents<Engine::PlayerComponent>();
+	ASSERT(players.size() == 2, "Must be excatly two players");
+
+	if (players[0]->GetComponent<PlayerTagComponent>()->m_PlayerTag == PlayerTag::Two)
+	{
+		std::swap(players[0], players[1]);
+	}
+
+	for (int i = 0; i < 2; ++i)
+	{
+		auto player = players[i];
+
+		auto input = player->GetComponent<Engine::InputComponent>();
+
+		int tag = PlayerTagToInt(player->GetComponent<PlayerTagComponent>()->m_PlayerTag);
+
+		if (Engine::InputManager::IsActionActive(input, fmt::format("Pause{}Game", tag))) {
+			GamePaused = !GamePaused;
+			break;
+		}
+	}
+
+	return GamePaused;
+}
+
 /*
  * CarPhysics: Jumping, collision, 
  * AI Cars

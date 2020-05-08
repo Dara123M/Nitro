@@ -68,14 +68,14 @@ bool Nitro::GameApp::GameSpecificInit()
 		LOG_ERROR("Failed to initialize TextController");
 		return false;
 	}
-
 	m_AudioController = AudioController::Create();
 	if (!m_AudioController->Init(m_AudioManager.get()))
 	{
-		LOG_ERROR("Failed to initilize AUdioController");
+		LOG_ERROR("Failed to initilize AudioController");
 		return false;
 	}
-
+	
+	m_gameMode = GameMode::MenuMode;
 
 	return true;
 }
@@ -90,8 +90,42 @@ void Nitro::GameApp::GameSpecificUpdate(float dt)
 #if _DEBUG
 	m_DebugController->Update(dt, m_EntityManager.get());
 #endif
-	m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get());
-	m_TextController->Update(dt, m_EntityManager.get());
 	m_CameraController->Update(dt, m_EntityManager.get());
 	m_TrackController->Update(dt, m_EntityManager.get(), m_TextureManager.get());
+
+	m_TextController->Update(dt, m_EntityManager.get(), m_gameMode);
+
+	switch (m_gameMode)
+	{
+	case Nitro::GameMode::MenuMode:
+	{
+		
+		if (m_PlayerController->StartingGame(m_EntityManager.get())) {
+			m_gameMode = GameMode::PlayingMode;
+			m_AudioManager->PlayMusic("background_music");
+		}
+		break; 
+	}
+	case Nitro::GameMode::PlayingMode: {
+		if (m_PlayerController->PausingGame(m_EntityManager.get(), "play")) {
+			m_gameMode = GameMode::PauseMode;
+			m_AudioManager->PauseMusic();
+		}
+		m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get());
+		
+		
+		break;
+	}
+	case Nitro::GameMode::PauseMode: {
+		if (!m_PlayerController->PausingGame(m_EntityManager.get(), "pause")) {
+			m_gameMode = GameMode::PlayingMode;
+			m_AudioManager->ResumeMusic();
+		}
+	}
+	case Nitro::GameMode::ScoreMode: {
+
+		break;
+	}
+	}
+	
 }

@@ -89,7 +89,8 @@ namespace Engine
         m_InputActions["Player2MoveDown"] = VK_DOWN;
         m_InputActions["Player2MoveRight"] = VK_RIGHT;
         m_InputActions["Player2Jump"] = VK_RSHIFT;
-        m_InputActions["PauseGame"] = VK_ESCAPE;
+        m_InputActions["Pause1Game"] = VK_SPACE;
+        m_InputActions["Pause2Game"] = 'P';
         m_InputActions["RestartGame"] = 'R';
         m_InputActions["Player1MoveUp"] = 'W';
         m_InputActions["Player1MoveLeft"] = 'A';
@@ -100,6 +101,9 @@ namespace Engine
         m_InputActions["PanCameraLeft"] = 'Y';
         m_InputActions["PanCameraDown"] = 'Y';
         m_InputActions["PanCameraRight"] = 'Y';
+        m_InputActions["Start1Game"] = 'Q';
+        m_InputActions["Start2Game"] = VK_RETURN;
+
     }
 
     bool InputManager::IsActionActive(InputComponent* inputComponent, EInputAction targetAction)
