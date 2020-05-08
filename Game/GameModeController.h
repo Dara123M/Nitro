@@ -11,7 +11,7 @@ namespace Nitro {
 	class GameModeController {
 	public:
 		bool Init(Engine::EntityManager* entityManager_);
-		void Update(float dt, Engine::EntityManager* entityManager_, Engine::AudioManager* audioManager_, Engine::InputManager* inputManager_/*, GameMode* gameMode_*/);
+		void Update(float dt, Engine::EntityManager* entityManager_, Engine::AudioManager* audioManager_, Engine::InputManager* inputManager_);
 		static std::unique_ptr<GameModeController> Create(){
 			return std::make_unique<GameModeController>();
 		}

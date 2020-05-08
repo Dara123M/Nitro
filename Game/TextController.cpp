@@ -16,20 +16,6 @@ bool Nitro::TextController::Init(Engine::EntityManager* entityManager_) {
 		std::swap(player1, player2);
 	}
 
-/*
-	auto start = Engine::Entity::Create();
-	start->AddComponent<Engine::TextComponent>("PRESS ENTER OR Q TO START");
-	start->AddComponent<Engine::TransformComponent>(400,20.f);
-	start->AddComponent<TextInfoComponent>(PlayerTag::One, TextInfoType::Start, player1);
-	entityManager_->AddEntity(std::move(start));
-
-	auto pause = Engine::Entity::Create();
-	pause->AddComponent<Engine::TextComponent>("PAUSE");
-	pause->AddComponent<Engine::TransformComponent>(300, 20.f);
-	pause->AddComponent<TextInfoComponent>(PlayerTag::Two, TextInfoType::Pause, player2);
-	entityManager_->AddEntity(std::move(pause));
-
-*/
 
 	auto km1 = Engine::Entity::Create();
 	km1->AddComponent<Engine::TextComponent>("km/h");

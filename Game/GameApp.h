@@ -28,7 +28,6 @@ namespace Nitro
 		std::unique_ptr<AudioController> m_AudioController;
 		std::unique_ptr<GameModeController> m_GameModeController;
 
-		GameMode m_gameMode;
 
 
 #if _DEBUG

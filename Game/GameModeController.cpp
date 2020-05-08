@@ -34,7 +34,7 @@ namespace Nitro {
 		return true;
 	}
 
-	void Nitro::GameModeController::Update(float dt, Engine::EntityManager* entityManager_, Engine::AudioManager* audioManager_, Engine::InputManager* inputManager_/*, GameMode* gameMode_*/)
+	void Nitro::GameModeController::Update(float dt, Engine::EntityManager* entityManager_, Engine::AudioManager* audioManager_, Engine::InputManager* inputManager_)
 	{
 		ASSERT(entityManager_ != nullptr, "Must pass a valid entity manager");
 

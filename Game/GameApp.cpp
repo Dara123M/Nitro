@@ -84,7 +84,6 @@ bool Nitro::GameApp::GameSpecificInit()
 	}
 
 
-	//m_gameMode = GameMode::MenuMode;
 
 	return true;
 }

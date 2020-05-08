@@ -71,8 +71,7 @@ bool Nitro::PlayerController::Init(Engine::EntityManager* entityManager_, Engine
 		input.inputActions.emplace_back(fmt::format("Player{}MoveLeft", i));
 		input.inputActions.emplace_back(fmt::format("Player{}MoveRight", i));
 		input.inputActions.emplace_back(fmt::format("Player{}Jump", i));
-		input.inputActions.emplace_back(fmt::format("Start{}Game", i));
-		input.inputActions.emplace_back(fmt::format("Pause{}Game", i));
+		
 		// input.inputActions.emplace_back("Player1Jump");
 
 		player->AddComponent<PlayerTagComponent>(PlayerTagFromInt(i));
