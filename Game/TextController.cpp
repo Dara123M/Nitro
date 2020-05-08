@@ -16,20 +16,20 @@ bool Nitro::TextController::Init(Engine::EntityManager* entityManager_) {
 		std::swap(player1, player2);
 	}
 
-
+/*
 	auto start = Engine::Entity::Create();
-	start->AddComponent<Engine::TextComponent>("START");
-	start->AddComponent<Engine::TransformComponent>(600,20.f);
+	start->AddComponent<Engine::TextComponent>("PRESS ENTER OR Q TO START");
+	start->AddComponent<Engine::TransformComponent>(400,20.f);
 	start->AddComponent<TextInfoComponent>(PlayerTag::One, TextInfoType::Start, player1);
 	entityManager_->AddEntity(std::move(start));
 
-	/*auto pause = Engine::Entity::Create();
+	auto pause = Engine::Entity::Create();
 	pause->AddComponent<Engine::TextComponent>("PAUSE");
 	pause->AddComponent<Engine::TransformComponent>(300, 20.f);
 	pause->AddComponent<TextInfoComponent>(PlayerTag::Two, TextInfoType::Pause, player2);
 	entityManager_->AddEntity(std::move(pause));
-	*/
 
+*/
 
 	auto km1 = Engine::Entity::Create();
 	km1->AddComponent<Engine::TextComponent>("km/h");
@@ -70,7 +70,7 @@ bool Nitro::TextController::Init(Engine::EntityManager* entityManager_) {
 	return true;
 }
 
-void Nitro::TextController::Update(float dt_, Engine::EntityManager* entityManager_, GameMode gameMode_) {
+void Nitro::TextController::Update(float dt_, Engine::EntityManager* entityManager_) {
 
 	ASSERT(entityManager_ != nullptr, "Must pass a valid entity manager");
 
@@ -86,17 +86,6 @@ void Nitro::TextController::Update(float dt_, Engine::EntityManager* entityManag
 			tekst->m_text = std::to_string((int)speed->m_CarSpeed);
 			break;
 		}
-
-		case TextInfoType::Start: {
-			if (gameMode_!=GameMode::MenuMode)
-				tekst->m_text = " ";
-			
-		}break;
-	    case TextInfoType::Pause: {
-			if (gameMode_!= GameMode::PauseMode)
-				tekst->m_text = " ";
-		}break;
-
 		case TextInfoType::Kmh: { break;}
 		case TextInfoType::Distance: {
 			auto transform = info->m_PlayerEntity->GetComponent<Engine::TransformComponent>();

@@ -134,6 +134,16 @@ namespace Engine
 		TextComponent(std::string text) : m_text(text) {}
 	};
 
+	enum class Modes {
+		Menu,
+		Pause,
+		Play,
+		Score
+	};
+
+	struct GameModeInfoComponent : public Component {
+		Modes m_CurrentGameMode{Modes::Menu};
+	};
 	
 	struct BackgroundComponent : public Component
 	{

@@ -12,7 +12,7 @@
 #include "TrackController.h"
 #include "TextController.h"
 #include "AudioController.h"
-
+#include "GameModeController.h"
 void Nitro::GameApp::GameSpecificWindowData()
 {
 	Engine::WindowData windowData;
@@ -76,7 +76,15 @@ bool Nitro::GameApp::GameSpecificInit()
 		return false;
 	}
 
-	m_gameMode = GameMode::MenuMode;
+	m_GameModeController = GameModeController::Create();
+	if (!m_GameModeController->Init(m_EntityManager.get()))
+	{
+		LOG_ERROR("Failed to initilize AUdioController");
+		return false;
+	}
+
+
+	//m_gameMode = GameMode::MenuMode;
 
 	return true;
 }
@@ -93,43 +101,21 @@ void Nitro::GameApp::GameSpecificUpdate(float dt)
 #endif
 
 
+
 	m_CameraController->Update(dt, m_EntityManager.get());
 	m_TrackController->Update(dt, m_EntityManager.get(), m_TextureManager.get());
-	m_TextController->Update(dt, m_EntityManager.get(), m_gameMode);
-	m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get(), &m_gameMode);
+	m_GameModeController->Update(dt, m_EntityManager.get(), m_AudioManager.get(), m_InputManager.get());
+	
+	switch(m_GameModeController->getGameMode()){
+		
+		case Nitro::GameMode::PlayingMode:{
+			m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get());
+		}break;
+		default: break;
+	};
 
-	/*switch (m_gameMode)
-	{
-	case Nitro::GameMode::MenuMode:
-	{
-		
-		if (m_PlayerController->StartingGame(m_EntityManager.get())) {
-			m_gameMode = GameMode::PlayingMode;
-			m_AudioManager->PlayMusic("background_music");
-		}
-		break; 
-	}
-	case Nitro::GameMode::PlayingMode: {
-		if (m_PlayerController->PausingGame(m_EntityManager.get(), "play")) {
-			m_gameMode = GameMode::PauseMode;
-			m_AudioManager->PauseMusic();
-		}
-		m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get(), &m_gameMode);
-		
-		
-		break;
-	}
-	case Nitro::GameMode::PauseMode: {
-		if (!m_PlayerController->PausingGame(m_EntityManager.get(), "pause")) {
-			m_gameMode = GameMode::PlayingMode;
-			m_AudioManager->ResumeMusic();
-		}
-	}
-	case Nitro::GameMode::ScoreMode: {
-		std::cout << "usao sam ovde" << std::endl;
-		break;
-	}
-	}
-	*/
+	m_TextController->Update(dt, m_EntityManager.get());
+	
+	
 
 }

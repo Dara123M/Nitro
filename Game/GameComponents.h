@@ -122,7 +122,8 @@ namespace Nitro
 		Speed,
 		Distance,
 		Start,
-		Pause
+		Pause,
+
 	};
 
 	struct TextInfoComponent : public Engine::Component
@@ -151,6 +152,13 @@ namespace Nitro
 		PlayingMode,
 		PauseMode,
 		ScoreMode
+	};
+	struct GameModeComponent : public Engine::Component {
+		PlayerTag m_PlayerTag;
+		//Pointer to player
+		Engine::Entity* m_PlayerEntity;
+		GameMode m_Mode;
+		GameModeComponent(PlayerTag PlayerTag, GameMode Mode, Engine::Entity* Player) : m_PlayerTag(PlayerTag), m_Mode(Mode), m_PlayerEntity(Player) {}
 	};
 	inline const char* GameModeToString(GameMode g)
 	{

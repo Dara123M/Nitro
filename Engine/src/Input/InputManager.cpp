@@ -62,7 +62,7 @@ namespace Engine
         {
             for (auto& action : component->inputActions)
             {
-                action.m_Active = IsButtonActionActive(action.m_Action, action.m_ActionTriggerState);
+                action.m_Active = IsActionInState(action.m_Action, action.m_ActionTriggerState);
             }
         }
     }
@@ -73,7 +73,7 @@ namespace Engine
         m_InputActionStates.clear();
     }
 
-    bool InputManager::IsButtonActionActive(EInputAction _eAction, EInputActionState _eState) const
+    bool InputManager::IsActionInState(EInputAction _eAction, EInputActionState _eState) const
     {
         ASSERT(m_InputActionStates.find(_eAction) != m_InputActionStates.end(), "Unknown input action: {}", _eAction);
         return m_InputActionStates.at(_eAction) == _eState;

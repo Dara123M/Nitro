@@ -11,6 +11,7 @@ namespace Engine
     class InputManager
     {
     public:
+
         bool Init();
         void Update(float dt, EntityManager* entityManager);
         void Shutdown();
@@ -19,14 +20,14 @@ namespace Engine
 
         InputManager() = default;
 
+        bool IsActionInState(EInputAction _eAction, EInputActionState _eState) const;
+       
     private:
         void ProcessInput();
-        bool IsButtonActionActive(EInputAction _eAction, EInputActionState _eState) const;
         void InitKeybinds();
 
         std::unordered_map<EInputAction, KeyboardButton> m_InputActions{ };
         std::unordered_map<EInputAction, EInputActionState> m_InputActionStates{ };
-        
 
         InputManager(const InputManager& other) = delete;
         InputManager& operator=(InputManager& other) = delete;

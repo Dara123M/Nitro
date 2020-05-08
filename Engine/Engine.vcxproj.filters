@@ -61,6 +61,9 @@
     <Filter Include="src\Audio">
       <UniqueIdentifier>{51195d47-f457-4b96-abdd-2745b09c558e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\States">
+      <UniqueIdentifier>{762f23aa-6704-4a0e-b96d-3d509979af30}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Logger\Logger.cpp">
