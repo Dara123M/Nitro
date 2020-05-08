@@ -143,4 +143,25 @@ namespace Nitro
 		float m_JumpTimeCooldownLength;
 	};
 	
+<<<<<<< Updated upstream
+=======
+	enum class GameMode {
+		MenuMode,
+		PlayingMode,
+		PauseMode,
+		ScoreMode
+	};
+	inline const char* GameModeToString(GameMode g)
+	{
+		switch (g)
+		{
+		case GameMode::MenuMode: return "menu";
+		case GameMode::PlayingMode: return "play";
+		case GameMode::PauseMode: return "pause";
+		case GameMode::ScoreMode: return "score";
+			ASSERT(false, "Unkonwn game mode");
+			return "";
+		}
+	}
+>>>>>>> Stashed changes
 }

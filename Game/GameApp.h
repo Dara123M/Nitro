@@ -24,7 +24,12 @@ namespace Nitro
 		std::unique_ptr<TrackController> m_TrackController;
 		std::unique_ptr<TextController> m_TextController;
 		std::unique_ptr<AudioController> m_AudioController;
+<<<<<<< Updated upstream
 		
+=======
+		GameMode m_gameMode;
+		std::string game;
+>>>>>>> Stashed changes
 #if _DEBUG
 		std::unique_ptr<DebugController> m_DebugController;
 #endif

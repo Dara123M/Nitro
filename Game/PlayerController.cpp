@@ -98,8 +98,9 @@ bool Nitro::PlayerController::Init(Engine::EntityManager* entityManager_, Engine
 
 
 
-void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityManager_, Engine::AudioManager* audioManager_)
+void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityManager_, Engine::AudioManager* audioManager_, GameMode* gameMode_)
 {
+	
 	auto players = entityManager_->GetAllEntitiesWithComponents<Engine::PlayerComponent>();
 	ASSERT(players.size() == 2, "Must be excatly two players");
 
@@ -123,6 +124,7 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 		bool moveLeft = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveLeft", tag));
 		bool moveRight = Engine::InputManager::IsActionActive(input, fmt::format("Player{}MoveRight", tag));
 		bool jump = Engine::InputManager::IsActionActive(input, fmt::format("Player{}Jump", tag));
+<<<<<<< Updated upstream
 
 
 		MoveWheel(dt_, moveLeft, moveRight, physics);
@@ -130,6 +132,43 @@ void Nitro::PlayerController::Update(float dt_, Engine::EntityManager* entityMan
 		SteerTheCar(dt_, player);
 		HandleJump(dt_, jump, player, audioManager_);
 		CollideWithOtherEntities(dt_, player);
+=======
+		bool start = Engine::InputManager::IsActionActive(input, fmt::format("Start{}Game",tag));
+		bool pause = Engine::InputManager::IsActionActive(input, fmt::format("Pause{}Game", tag));
+
+		switch (*gameMode_) {
+			case GameMode::MenuMode: {
+				if (start) {
+					(*gameMode_) = GameMode::PlayingMode;
+					audioManager_->PlayMusic("background_music");
+
+				}
+
+			}break;
+			case GameMode::PauseMode: {
+				if (pause) {
+					(*gameMode_) = GameMode::PlayingMode;
+					audioManager_->ResumeMusic();
+				}
+
+
+			}break;
+			case GameMode::PlayingMode: {
+				if (pause) {
+					(*gameMode_) = GameMode::PauseMode;
+					audioManager_->PauseMusic();
+					return;
+				}
+
+				MoveWheel(dt_, moveLeft, moveRight, physics);
+				HandleGasAndBreaking(dt_, moveUp, moveDown, physics);
+				SteerTheCar(dt_, player);
+				HandleJump(dt_, jump, player, audioManager_);
+				CollideWithOtherEntities(dt_, player);
+			}
+		}
+
+>>>>>>> Stashed changes
 	}
 
 }

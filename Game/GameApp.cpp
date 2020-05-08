@@ -75,8 +75,14 @@ bool Nitro::GameApp::GameSpecificInit()
 		LOG_ERROR("Failed to initilize AUdioController");
 		return false;
 	}
+<<<<<<< Updated upstream
 
 
+=======
+	
+	m_gameMode = GameMode::MenuMode;
+	game = "menu";
+>>>>>>> Stashed changes
 	return true;
 }
 
@@ -94,4 +100,43 @@ void Nitro::GameApp::GameSpecificUpdate(float dt)
 	m_TextController->Update(dt, m_EntityManager.get());
 	m_CameraController->Update(dt, m_EntityManager.get());
 	m_TrackController->Update(dt, m_EntityManager.get(), m_TextureManager.get());
+<<<<<<< Updated upstream
+=======
+	m_TextController->Update(dt, m_EntityManager.get(), m_gameMode);
+	m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get(), &m_gameMode);
+
+	/*switch (m_gameMode)
+	{
+	case Nitro::GameMode::MenuMode:
+	{
+		
+		if (m_PlayerController->StartingGame(m_EntityManager.get())) {
+			m_gameMode = GameMode::PlayingMode;
+			m_AudioManager->PlayMusic("background_music");
+		}
+		break; 
+	}
+	case Nitro::GameMode::PlayingMode: {
+		if (m_PlayerController->PausingGame(m_EntityManager.get(), "play")) {
+			m_gameMode = GameMode::PauseMode;
+			m_AudioManager->PauseMusic();
+		}
+		m_PlayerController->Update(dt, m_EntityManager.get(), m_AudioManager.get(), &m_gameMode);
+		
+		
+		break;
+	}
+	case Nitro::GameMode::PauseMode: {
+		if (!m_PlayerController->PausingGame(m_EntityManager.get(), "pause")) {
+			m_gameMode = GameMode::PlayingMode;
+			m_AudioManager->ResumeMusic();
+		}
+	}
+	case Nitro::GameMode::ScoreMode: {
+		std::cout << "usao sam ovde" << std::endl;
+		break;
+	}
+	}
+	*/
+>>>>>>> Stashed changes
 }
