@@ -55,7 +55,7 @@ namespace Nitro {
 
 
 				if (info->m_Type== TextInfoType::Start && (inputManager_->IsActionInState("Start1Game", Engine::EInputActionState::Released) || inputManager_->IsActionInState("Start2Game", Engine::EInputActionState::Released))) {
-					m_GameMode = GameMode::ScoreMode;
+					m_GameMode = GameMode::PlayingMode;
 					audioManager_->PlayMusic("background_music");
 					tekst->m_text = " ";
 				}
