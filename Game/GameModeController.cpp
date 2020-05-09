@@ -3,7 +3,7 @@
 #include "TextureController.h"
 #include "TextController.h"
 #include "GameComponents.h"
-//#include "Input/InputManager.h"
+
 namespace Nitro {
 	bool Nitro::GameModeController::Init(Engine::EntityManager* entityManager_) 
 	{
@@ -21,15 +21,21 @@ namespace Nitro {
 		
 	    auto start = Engine::Entity::Create();
 		start->AddComponent<Engine::TextComponent>("PRESS ENTER OR Q TO START");
-		start->AddComponent<Engine::TransformComponent>(400,20.f);
+		start->AddComponent<Engine::TransformComponent>(400,300.f);
 		start->AddComponent<TextInfoComponent>(PlayerTag::One, TextInfoType::Start, player1);
 		entityManager_->AddEntity(std::move(start));
 
 		auto pause = Engine::Entity::Create();
 		pause->AddComponent<Engine::TextComponent>(" ");
-		pause->AddComponent<Engine::TransformComponent>(300, 20.f);
+		pause->AddComponent<Engine::TransformComponent>(300, 50.f);
 		pause->AddComponent<TextInfoComponent>(PlayerTag::Two, TextInfoType::Pause, player2);
 		entityManager_->AddEntity(std::move(pause));
+
+		auto score = Engine::Entity::Create();
+		score->AddComponent<Engine::TextComponent>(" ");
+		score->AddComponent<Engine::TransformComponent>(400, 300.f);
+		score->AddComponent<TextInfoComponent>(PlayerTag::Two, TextInfoType::Score, player2);
+		entityManager_->AddEntity(std::move(score));
 
 		return true;
 	}
@@ -49,7 +55,7 @@ namespace Nitro {
 
 
 				if (info->m_Type== TextInfoType::Start && (inputManager_->IsActionInState("Start1Game", Engine::EInputActionState::Released) || inputManager_->IsActionInState("Start2Game", Engine::EInputActionState::Released))) {
-					m_GameMode = GameMode::PlayingMode;
+					m_GameMode = GameMode::ScoreMode;
 					audioManager_->PlayMusic("background_music");
 					tekst->m_text = " ";
 				}
@@ -70,10 +76,15 @@ namespace Nitro {
 					m_GameMode = GameMode::PlayingMode;
 					audioManager_->ResumeMusic();
 					tekst->m_text = " ";
-
 				}
 			}break;
-			case GameMode::ScoreMode: {}break;
+			case GameMode::ScoreMode: {
+				if (info->m_Type == TextInfoType::Score) {
+					audioManager_->StopMusic();
+					audioManager_->PlayMusic("score_music");
+					tekst->m_text = " THE GAME IS FINISHED";
+				}
+			}break;
 			};
 
 		}

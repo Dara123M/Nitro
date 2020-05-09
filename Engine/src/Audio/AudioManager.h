@@ -16,7 +16,7 @@ namespace Engine
 		void PlayMusic(const std::string& name);
 		void ResumeMusic();
 		void PauseMusic();
-
+		void StopMusic();
 	private:
 		std::map<std::string, Mix_Chunk*> m_SoundEffectMap;
 		std::map<std::string, Mix_Music*> m_MusicMap;

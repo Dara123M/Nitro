@@ -173,4 +173,8 @@ namespace Engine
 	void AudioManager::PauseMusic() {
 		Mix_PauseMusic();
 	}
+	
+	void AudioManager::StopMusic() {
+		Mix_HaltMusic();
+	}
 };

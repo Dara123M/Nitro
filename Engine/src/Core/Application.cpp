@@ -42,6 +42,7 @@ namespace Engine {
             return false;
         }
 
+
         // Texture Manager create
         m_TextureManager = std::make_unique<TextureManager>();
 

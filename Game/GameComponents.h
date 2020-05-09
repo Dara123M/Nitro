@@ -123,7 +123,7 @@ namespace Nitro
 		Distance,
 		Start,
 		Pause,
-
+		Score
 	};
 
 	struct TextInfoComponent : public Engine::Component

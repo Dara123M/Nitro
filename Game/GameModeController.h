@@ -4,6 +4,7 @@ namespace Engine {
 	class EntityManager;
 	class TextureManager;
 	class InputManager;
+
 }
 
 namespace Nitro {
